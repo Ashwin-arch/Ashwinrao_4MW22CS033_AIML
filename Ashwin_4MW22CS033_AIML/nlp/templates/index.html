@@ -9,12 +9,33 @@
 <body>
     <div class="container">
         <h1>Sentiment Analysis</h1>
-        <form id="sentimentForm">
+        <form id="sentimentForm" class="section">
             <label for="text">Enter your text for sentiment analysis:</label>
             <textarea id="text" rows="4" required></textarea>
             <button type="submit">Analyze Sentiment</button>
         </form>
-        <div id="result"></div>
+        <div id="result" class="result-box"></div>
+
+        <h2>AI Agent</h2>
+        <p class="helper-text">
+            Use your Gemini or Groq free-tier API key. Keys are used only for this request and are not stored.
+        </p>
+        <form id="agentForm" class="section">
+            <label for="provider">Provider</label>
+            <select id="provider" required>
+                <option value="gemini">Gemini</option>
+                <option value="groq">Groq (free tier)</option>
+            </select>
+
+            <label for="apiKey">API Key</label>
+            <input id="apiKey" type="password" placeholder="Paste your API key" required />
+
+            <label for="prompt">Prompt</label>
+            <textarea id="prompt" rows="4" placeholder="Ask the agent anything..." required></textarea>
+
+            <button type="submit">Ask Agent</button>
+        </form>
+        <div id="agentResult" class="result-box"></div>
     </div>
 
     <script src="/static/script.js"></script>

@@ -25,3 +25,38 @@ document.getElementById('sentimentForm').addEventListener('submit', function (e)
         console.error('Error:', error);
     });    
 });
+
+document.getElementById('agentForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const provider = document.getElementById('provider').value;
+    const apiKey = document.getElementById('apiKey').value;
+    const prompt = document.getElementById('prompt').value;
+    const resultBox = document.getElementById('agentResult');
+
+    resultBox.textContent = 'Thinking...';
+
+    fetch('/agent', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            provider: provider,
+            api_key: apiKey,
+            prompt: prompt
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            resultBox.textContent = `Error: ${data.error}`;
+            return;
+        }
+        resultBox.textContent = data.response;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        resultBox.textContent = 'Error: Unable to reach the agent service.';
+    });
+});
